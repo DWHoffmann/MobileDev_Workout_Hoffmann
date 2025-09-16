@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Workout.ViewModels"
+             x:Class="Workout.Views.WorkoutView"
+             BackgroundColor="Black">
+
+    <ContentPage.BindingContext>
+        <vm:WorkoutViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Workout Khorner"
+                   FontSize="28"
+                   TextColor="Gold"
+                   HorizontalOptions="Center" />
+
+            <!-- Inputs -->
+            <Entry Placeholder="Workout Type" PlaceholderColor="Gray"
+                   Text="{Binding WorkoutType}" 
+                   TextColor="Black" 
+                   BackgroundColor="White" 
+                   FontSize="20" 
+                   HeightRequest="60"/>
+
+            <Entry Placeholder="Duration (minutes)" PlaceholderColor="Gray"
+                   Keyboard="Numeric"
+                   Text="{Binding MinutesWorkout}" 
+                   TextColor="Black" 
+                   BackgroundColor="White" 
+                   FontSize="20" 
+                   HeightRequest="60"/>
+
+            <DatePicker Date="{Binding Date}" 
+                        TextColor="Black"
+                        BackgroundColor="White"
+                        FontSize="20"
+                        HeightRequest="60"/>
+
+            <Entry Placeholder="Calories Burnt" PlaceholderColor="Gray"
+                   Keyboard="Numeric" 
+                   Text="{Binding CaloriesBurnt}" 
+                   TextColor="Black" 
+                   BackgroundColor="White" 
+                   FontSize="20" 
+                   HeightRequest="60"/>
+
+            <Button Text="Save Workout" 
+                    BackgroundColor="Gold" 
+                    TextColor="Black" 
+                    FontSize="22" 
+                    HeightRequest="60" 
+                    Command="{Binding SaveCommand}" />
+
+            <!-- Saved entries -->
+            <CollectionView ItemsSource="{Binding WorkoutEntries}" Margin="0,20,0,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Red"
+                                               Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteCommand}"
+                                               CommandParameter="{Binding}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Frame BackgroundColor="#222222" CornerRadius="10" Padding="10" Margin="0,5">
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding WorkoutType}" TextColor="Gold" FontSize="18"/>
+                                    <Label Text="{Binding Date, StringFormat='Date: {0:d}'}" TextColor="White"/>
+                                    <Label Text="{Binding MinutesWorkout, StringFormat='Duration: {0} minutes'}" TextColor="White"/>
+                                    <Label Text="{Binding CalroiesBurnt, StringFormat='Calories Burnt: {0}'}" TextColor="White"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

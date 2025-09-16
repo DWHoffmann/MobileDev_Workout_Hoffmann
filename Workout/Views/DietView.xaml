@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Workout.ViewModels"
+             x:Class="Workout.Views.DietView"
+             x:Name="DietPage"
+             BackgroundColor="Black">
+
+    <ContentPage.BindingContext>
+        <vm:DietViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="Pox and Portions"
+                   FontSize="28"
+                   TextColor="Gold"
+                   HorizontalOptions="Center" />
+
+            <!-- Inputs -->
+            <Entry Placeholder="Meal" PlaceholderColor="Gray"
+                   Text="{Binding Meal}"
+                   TextColor="Black" 
+                   BackgroundColor="White" 
+                   FontSize="20" 
+                   HeightRequest="60"/>
+
+            <Entry Placeholder="Calories" PlaceholderColor="Gray"
+                   Keyboard="Numeric"
+                   Text="{Binding Calories}"
+                   TextColor="Black" 
+                   BackgroundColor="White" 
+                   FontSize="20" 
+                   HeightRequest="60"/>
+
+            <Entry Placeholder="Protien" PlaceholderColor="Gray"
+                   Keyboard="Numeric"
+                   Text="{Binding Protien}"
+                   TextColor="Black" 
+                   BackgroundColor="White" 
+                   FontSize="20" 
+                   HeightRequest="60"/>
+
+            <Entry Placeholder="Carbs" PlaceholderColor="Gray"
+                   Keyboard="Numeric"
+                   Text="{Binding Carbs}"
+                   TextColor="Black" 
+                   BackgroundColor="White" 
+                   FontSize="20" 
+                   HeightRequest="60"/>
+
+            <Entry Placeholder="Servings" PlaceholderColor="Gray"
+                   Keyboard="Numeric"
+                   Text="{Binding Servings}"
+                   TextColor="Black" 
+                   BackgroundColor="White" 
+                   FontSize="20" 
+                   HeightRequest="60"/>
+
+            <Button Text="Save Entry" 
+                    BackgroundColor="Gold" 
+                    TextColor="Black" 
+                    FontSize="22" 
+                    HeightRequest="60" 
+                    Command="{Binding SaveCommand}" />
+
+            <!-- Saved entries -->
+            <CollectionView ItemsSource="{Binding DietEntries}" Margin="0,20,0,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Red"
+                                               Command="{Binding BindingContext.DeleteCommand, Source={x:Reference DietPage}}"
+                                               CommandParameter="{Binding}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Frame BackgroundColor="#222222" CornerRadius="10" Padding="10" Margin="0,5">
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding Meal}" TextColor="Gold" FontSize="18"/>
+                                    <Label Text="{Binding Calories, StringFormat='Calories: {0}'}" TextColor="White"/>
+                                    <Label Text="{Binding Protien, StringFormat='Protien: {0}g'}" TextColor="White"/>
+                                    <Label Text="{Binding Carbs, StringFormat='Carbs: {0}g'}" TextColor="White"/>
+                                    <Label Text="{Binding Servings, StringFormat='Servings: {0}'}" TextColor="White"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Workout.ViewModels"
+             x:Class="Workout.Views.GoalView"
+             x:Name="GoalsPage"
+             BackgroundColor="Black">
+
+    <ContentPage.BindingContext>
+        <vm:GoalViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+            <!-- brent will not understand these names without context-->
+            <Label Text="The Goals of Excesss" 
+                   FontSize="28"
+                   TextColor="Gold"
+                   HorizontalOptions="Center" />
+
+            <!-- Goal type picker -->
+            <Picker Title="Select Goal Type"
+                    ItemsSource="{Binding GoalTypes}"
+                    SelectedItem="{Binding SelectedGoalType}"
+                    TextColor="Black"
+                    BackgroundColor="White"
+                    FontSize="20"
+                    HeightRequest="60" />
+
+            <!-- Conditional inputs -->
+            <Entry Placeholder="Target Calories"
+                   Keyboard="Numeric"
+                   Text="{Binding TargetCalories}"
+                   IsVisible="{Binding ShowCaloriesInput}"
+                   TextColor="Black"
+                   BackgroundColor="White"
+                   FontSize="20"
+                   HeightRequest="60"/>
+
+            <Entry Placeholder="Target Exercise Minutes"
+                   Keyboard="Numeric"
+                   Text="{Binding TargetExerciseMinutes}"
+                   IsVisible="{Binding ShowExerciseInput}"
+                   TextColor="Black"
+                   BackgroundColor="White"
+                   FontSize="20"
+                   HeightRequest="60"/>
+
+            <Entry Placeholder="Target Muscle Weight"
+                   Keyboard="Numeric"
+                   Text="{Binding TargetMuscleWeight}"
+                   IsVisible="{Binding ShowMuscleInput}"
+                   TextColor="Black"
+                   BackgroundColor="White"
+                   FontSize="20"
+                   HeightRequest="60"/>
+
+            <Entry Placeholder="Target Muscle Appearance"
+                   Text="{Binding TargetMuscleAppearance}"
+                   IsVisible="{Binding ShowMuscleInput}"
+                   TextColor="Black"
+                   BackgroundColor="White"
+                   FontSize="20"
+                   HeightRequest="60"/>
+
+            <Entry Placeholder="Target Weight"
+                   Keyboard="Numeric"
+                   Text="{Binding TargetWeight}"
+                   IsVisible="{Binding ShowWeightInput}"
+                   TextColor="Black"
+                   BackgroundColor="White"
+                   FontSize="20"
+                   HeightRequest="60"/>
+
+            <DatePicker Date="{Binding TargetDate}"
+                        TextColor="Black"
+                        BackgroundColor="White"
+                        FontSize="20"
+                        HeightRequest="60"
+                        IsVisible="{Binding ShowTargetDate}" />
+
+            <Entry Placeholder="Notes"
+                   Text="{Binding Notes}"
+                   TextColor="Black"
+                   BackgroundColor="White"
+                   FontSize="20"
+                   HeightRequest="60"/>
+
+            <Button Text="Save Goal"
+                    BackgroundColor="Gold"
+                    TextColor="Black"
+                    FontSize="22"
+                    HeightRequest="60"
+                    Command="{Binding SaveCommand}" />
+
+            <!-- Saved goals -->
+            <CollectionView ItemsSource="{Binding Goals}" Margin="0,20,0,0">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems Mode="Execute">
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Red"
+                                               Command="{Binding BindingContext.DeleteCommand, Source={x:Reference GoalsPage}}"
+                                               CommandParameter="{Binding}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Frame BackgroundColor="#222222" CornerRadius="10" Padding="10" Margin="0,5">
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding GoalType}" TextColor="Gold" FontSize="18"/>
+                                    <Label Text="{Binding TargetDate, StringFormat='Target Date: {0:d}'}" TextColor="White"/>
+
+                                    <!-- Progress text -->
+                                    <Label Text="{Binding ProgressText}" TextColor="White"/>
+
+                                    <!-- Progress bar -->
+                                    <ProgressBar Progress="{Binding Progress}"
+                                                 BackgroundColor="#555555"
+                                                 ProgressColor="Gold"
+                                                 HeightRequest="10"/>
+<!--the progress bar is gold for a reason-->
+                                    <Label Text="{Binding Notes}" TextColor="White"/>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
