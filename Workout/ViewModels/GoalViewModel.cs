@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
 using Workout.Models;
@@ -15,21 +16,48 @@ namespace Workout.ViewModels
         public string SelectedGoalType
         {
             get => selectedGoalType;
-            set { selectedGoalType = value; OnPropertyChanged(); UpdateVisibleFields(); }
+            set
+            {
+                if (selectedGoalType != value)
+                {
+                    selectedGoalType = value;
+                    OnPropertyChanged();                 
+                    UpdateVisibleFields();               
+                    OnPropertyChanged(nameof(IsGoalTypeSelected)); 
+                }
+            }
         }
+
 
         public ObservableCollection<string> GoalTypes { get; } = new()
         {
             "Calories Lost",
             "Exercise Minutes"
         };
+        public bool ShowMuscleWeightInput { get; set; }
+        public bool ShowMuscleAppearanceInput { get; set; }
+        public bool IsGoalTypeSelected => !string.IsNullOrWhiteSpace(SelectedGoalType);
+
 
         public int? TargetCalories { get; set; }
         public int? TargetExerciseMinutes { get; set; }
         public int? TargetMuscleWeight { get; set; }
         public string TargetMuscleAppearance { get; set; }
         public int? TargetWeight { get; set; }
-        public DateTime? TargetDate { get; set; }
+        private DateTime targetDate = DateTime.Today;
+        public DateTime TargetDate
+        {
+            get => targetDate;
+            set
+            {
+                if (targetDate != value)
+                {
+                    targetDate = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public string Notes { get; set; }
 
         public bool ShowCaloriesInput { get; set; }
@@ -42,6 +70,7 @@ namespace Workout.ViewModels
 
         public ICommand SaveCommand { get; }
         public ICommand DeleteCommand { get; }
+        public ICommand StartFlashingCommand { get; }
 
         // Edit modal fields
         private bool isEditModalVisible;
@@ -74,7 +103,6 @@ namespace Workout.ViewModels
             EditCommand = new Command<GoalsModel>(OpenEditModal);
             SaveEditCommand = new Command(SaveEdit);
             CancelEditCommand = new Command(CancelEdit);
-
             Repository.WorkoutEntries.CollectionChanged += (_, __) => RefreshGoalProgress();
             Repository.DietEntries.CollectionChanged += (_, __) => RefreshGoalProgress();
 
@@ -104,6 +132,7 @@ namespace Workout.ViewModels
             if (string.IsNullOrWhiteSpace(SelectedGoalType))
                 return;
 
+            // Create a new goal with all current input values
             var newGoal = new GoalsModel
             {
                 GoalType = SelectedGoalType,
@@ -119,23 +148,29 @@ namespace Workout.ViewModels
             Goals.Add(newGoal);
             newGoal.RefreshProgress();
 
-            // Reset input fields
-            SelectedGoalType = null;
-            TargetCalories = TargetExerciseMinutes = TargetMuscleWeight = TargetWeight = null;
-            TargetMuscleAppearance = Notes = string.Empty;
-            TargetDate = null;
+            // Reset all input fields
+            SelectedGoalType = string.Empty;
+            TargetCalories = null;
+            TargetExerciseMinutes = null;
+            TargetMuscleWeight = null;
+            TargetMuscleAppearance = string.Empty;
+            TargetWeight = null;
+            TargetDate = DateTime.Today;
+            Notes = string.Empty;
 
+            // Notify UI to update
             OnPropertyChanged(nameof(TargetCalories));
             OnPropertyChanged(nameof(TargetExerciseMinutes));
             OnPropertyChanged(nameof(TargetMuscleWeight));
-            OnPropertyChanged(nameof(TargetWeight));
             OnPropertyChanged(nameof(TargetMuscleAppearance));
-            OnPropertyChanged(nameof(Notes));
-            OnPropertyChanged(nameof(SelectedGoalType));
+            OnPropertyChanged(nameof(TargetWeight));
             OnPropertyChanged(nameof(TargetDate));
+            OnPropertyChanged(nameof(Notes));
+            OnPropertyChanged(nameof(IsGoalTypeSelected));
 
             FileLogger.Log("Saved Goal Entry");
         }
+
 
         private void DeleteGoal(GoalsModel goal)
         {
@@ -150,6 +185,7 @@ namespace Workout.ViewModels
             foreach (var goal in Goals)
                 goal.RefreshProgress();
         }
+
 
         // ----------- Edit Modal Logic -----------
 
@@ -189,21 +225,26 @@ namespace Workout.ViewModels
         }
 
         private void SaveEdit()
-        {
-            if (goalBeingEdited == null) return;
+{
+    if (goalBeingEdited == null)
+        return;
 
-            goalBeingEdited.GoalType = EditGoalType;
-            goalBeingEdited.TargetCalories = EditShowCaloriesInput ? EditTargetCalories : null;
-            goalBeingEdited.TargetExerciseMinutes = EditShowExerciseInput ? EditTargetExerciseMinutes : null;
-            goalBeingEdited.TargetDate = EditTargetDate;
-            goalBeingEdited.Notes = EditNotes;
+    goalBeingEdited.GoalType = EditGoalType;
+    goalBeingEdited.TargetCalories = EditShowCaloriesInput ? EditTargetCalories : null;
+    goalBeingEdited.TargetExerciseMinutes = EditShowExerciseInput ? EditTargetExerciseMinutes : null;
+    goalBeingEdited.TargetDate = EditTargetDate;
+    goalBeingEdited.Notes = EditNotes;
 
-            goalBeingEdited.RefreshProgress();
-            OnPropertyChanged(nameof(Goals));
+    goalBeingEdited.RefreshProgress();
 
-            IsEditModalVisible = false;
-            goalBeingEdited = null;
-        }
+    // Notify UI to refresh the collection
+    OnPropertyChanged(nameof(Goals));
+
+    // Close edit modal
+    IsEditModalVisible = false;
+    goalBeingEdited = null;
+}
+
 
         private void CancelEdit()
         {
@@ -211,4 +252,7 @@ namespace Workout.ViewModels
             goalBeingEdited = null;
         }
     }
+
+    
+
 }

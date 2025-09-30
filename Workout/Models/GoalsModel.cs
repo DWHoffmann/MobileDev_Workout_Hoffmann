@@ -19,6 +19,8 @@ namespace Workout.Models
         public int? CurrentMuscleWeight { get; set; }
         public int? CurrentWeight { get; set; }
 
+
+
         public double Progress
         {
             get
