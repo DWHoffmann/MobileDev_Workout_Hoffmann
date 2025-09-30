@@ -5,24 +5,22 @@ namespace Workout.Services
 {
     public static class FileLogger
     {
-       
         public static void AppStarted()
         {
-            Log("=== App Started ===");
+            Log("=== APP STARTED ===");
         }
 
-       
         public static void AppClosed()
         {
-            Log("=== App Closed ===");
+            Log("=== APP CLOSED ===");
         }
 
-       
         public static void Log(string message)
         {
             try
             {
-                var logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {message}";
+                // Format message to stand out in Output window
+                var logEntry = $"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] >>> {message} <<<";
 
                 // Write to Output window in Visual Studio
                 Debug.WriteLine(logEntry);
@@ -30,7 +28,6 @@ namespace Workout.Services
             catch
             {
                 // ignore logging errors
-                //reminder to self, cant save toa file while running an emulator so have anything you add go to the output as its running
             }
         }
     }

@@ -144,105 +144,105 @@
 
         <!-- Edit modal overlay -->
         <Grid BackgroundColor="{DynamicResource ModalOverlayColor}"
-              IsVisible="{Binding IsEditModalVisible}"
-              VerticalOptions="Center"
-              HorizontalOptions="Center">
+      IsVisible="{Binding IsEditModalVisible}"
+      VerticalOptions="Center"
+      HorizontalOptions="Center">
 
             <Frame BackgroundColor="{DynamicResource BackgroundColor}"
-                   BorderColor="{DynamicResource EntryBorderColor}"
-                   CornerRadius="20"
-                   Padding="20"
-                   HasShadow="True"
-                   WidthRequest="350"
-                   HeightRequest="450"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center">
+           BorderColor="{DynamicResource EntryBorderColor}"
+           CornerRadius="20"
+           Padding="20"
+           HasShadow="True"
+           WidthRequest="350"
+           VerticalOptions="Center"
+           HorizontalOptions="Center">
 
                 <VerticalStackLayout Spacing="15">
                     <Label Text="Edit Meal"
-                           TextColor="{DynamicResource PrimaryTextColor}"
-                           FontSize="28"
-                           HorizontalOptions="Center"/>
+                   TextColor="{DynamicResource PrimaryTextColor}"
+                   FontSize="28"
+                   HorizontalOptions="Center"/>
 
                     <!-- Edit Entries -->
                     <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
-                           BorderColor="{DynamicResource EntryBorderColor}" 
-                           CornerRadius="8" Padding="0" HeightRequest="60">
+                   BorderColor="{DynamicResource EntryBorderColor}" 
+                   CornerRadius="8" Padding="0" HeightRequest="60">
                         <Entry Text="{Binding EditMealText}" 
-                               Placeholder="Meal"
-                               PlaceholderColor="{DynamicResource PlaceholderColor}"
-                               TextColor="{DynamicResource EntryTextColor}"
-                               BackgroundColor="Transparent"
-                               FontSize="20"
-                               VerticalOptions="Center"/>
+                       Placeholder="Meal"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
+                       TextColor="{DynamicResource EntryTextColor}"
+                       BackgroundColor="Transparent"
+                       FontSize="20"
+                       VerticalOptions="Center"/>
                     </Frame>
 
                     <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
-                           BorderColor="{DynamicResource EntryBorderColor}" 
-                           CornerRadius="8" Padding="0" HeightRequest="60">
+                   BorderColor="{DynamicResource EntryBorderColor}" 
+                   CornerRadius="8" Padding="0" HeightRequest="60">
                         <Entry Text="{Binding EditCalories}" 
-                               Placeholder="Calories"
-                               Keyboard="Numeric"
-                               PlaceholderColor="{DynamicResource PlaceholderColor}"
-                               TextColor="{DynamicResource EntryTextColor}"
-                               BackgroundColor="Transparent"
-                               FontSize="20"
-                               VerticalOptions="Center"/>
+                       Placeholder="Calories"
+                       Keyboard="Numeric"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
+                       TextColor="{DynamicResource EntryTextColor}"
+                       BackgroundColor="Transparent"
+                       FontSize="20"
+                       VerticalOptions="Center"/>
                     </Frame>
 
                     <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
-                           BorderColor="{DynamicResource EntryBorderColor}" 
-                           CornerRadius="8" Padding="0" HeightRequest="60">
+                   BorderColor="{DynamicResource EntryBorderColor}" 
+                   CornerRadius="8" Padding="0" HeightRequest="60">
                         <Entry Text="{Binding EditProtien}" 
-                               Placeholder="Protien"
-                               Keyboard="Numeric"
-                               PlaceholderColor="{DynamicResource PlaceholderColor}"
-                               TextColor="{DynamicResource EntryTextColor}"
-                               BackgroundColor="Transparent"
-                               FontSize="20"
-                               VerticalOptions="Center"/>
+                       Placeholder="Protien"
+                       Keyboard="Numeric"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
+                       TextColor="{DynamicResource EntryTextColor}"
+                       BackgroundColor="Transparent"
+                       FontSize="20"
+                       VerticalOptions="Center"/>
                     </Frame>
 
                     <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
-                           BorderColor="{DynamicResource EntryBorderColor}" 
-                           CornerRadius="8" Padding="0" HeightRequest="60">
+                   BorderColor="{DynamicResource EntryBorderColor}" 
+                   CornerRadius="8" Padding="0" HeightRequest="60">
                         <Entry Text="{Binding EditCarbs}" 
-                               Placeholder="Carbs"
-                               Keyboard="Numeric"
-                               PlaceholderColor="{DynamicResource PlaceholderColor}"
-                               TextColor="{DynamicResource EntryTextColor}"
-                               BackgroundColor="Transparent"
-                               FontSize="20"
-                               VerticalOptions="Center"/>
+                       Placeholder="Carbs"
+                       Keyboard="Numeric"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
+                       TextColor="{DynamicResource EntryTextColor}"
+                       BackgroundColor="Transparent"
+                       FontSize="20"
+                       VerticalOptions="Center"/>
                     </Frame>
 
                     <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
-                           BorderColor="{DynamicResource EntryBorderColor}" 
-                           CornerRadius="8" Padding="0" HeightRequest="60">
+                   BorderColor="{DynamicResource EntryBorderColor}" 
+                   CornerRadius="8" Padding="0" HeightRequest="60">
                         <Entry Text="{Binding EditServings}" 
-                               Placeholder="Servings"
-                               Keyboard="Numeric"
-                               PlaceholderColor="{DynamicResource PlaceholderColor}"
-                               TextColor="{DynamicResource EntryTextColor}"
-                               BackgroundColor="Transparent"
-                               FontSize="20"
-                               VerticalOptions="Center"/>
+                       Placeholder="Servings"
+                       Keyboard="Numeric"
+                       PlaceholderColor="{DynamicResource PlaceholderColor}"
+                       TextColor="{DynamicResource EntryTextColor}"
+                       BackgroundColor="Transparent"
+                       FontSize="20"
+                       VerticalOptions="Center"/>
                     </Frame>
 
                     <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
                         <Button Text="Save Changes" Command="{Binding SaveEditCommand}"
-                                BackgroundColor="{DynamicResource ButtonBackgroundColor}"
-                                TextColor="{DynamicResource ButtonTextColor}"/>
+                        BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                        TextColor="{DynamicResource ButtonTextColor}"/>
                         <Button Text="Cancel" Command="{Binding CancelEditCommand}"
-                                BackgroundColor="{DynamicResource EntryBackgroundColor}"
-                                TextColor="{DynamicResource EntryTextColor}"
-                                BorderColor="{DynamicResource EntryBorderColor}"
-                                BorderWidth="1"/>
+                        BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                        TextColor="{DynamicResource EntryTextColor}"
+                        BorderColor="{DynamicResource EntryBorderColor}"
+                        BorderWidth="1"/>
                     </HorizontalStackLayout>
 
                 </VerticalStackLayout>
             </Frame>
         </Grid>
+
 
     </Grid>
 </ContentPage>

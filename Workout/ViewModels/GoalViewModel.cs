@@ -225,25 +225,30 @@ namespace Workout.ViewModels
         }
 
         private void SaveEdit()
-{
-    if (goalBeingEdited == null)
-        return;
+        {
+            if (goalBeingEdited == null)
+                return;
 
-    goalBeingEdited.GoalType = EditGoalType;
-    goalBeingEdited.TargetCalories = EditShowCaloriesInput ? EditTargetCalories : null;
-    goalBeingEdited.TargetExerciseMinutes = EditShowExerciseInput ? EditTargetExerciseMinutes : null;
-    goalBeingEdited.TargetDate = EditTargetDate;
-    goalBeingEdited.Notes = EditNotes;
+            // Update the goal
+            goalBeingEdited.TargetCalories = EditShowCaloriesInput ? EditTargetCalories : null;
+            goalBeingEdited.TargetExerciseMinutes = EditShowExerciseInput ? EditTargetExerciseMinutes : null;
+            goalBeingEdited.TargetDate = EditTargetDate;
+            goalBeingEdited.Notes = EditNotes;
 
-    goalBeingEdited.RefreshProgress();
+            goalBeingEdited.RefreshProgress();
 
-    // Notify UI to refresh the collection
-    OnPropertyChanged(nameof(Goals));
+            // Force CollectionView to refresh by replacing the item
+            var index = Goals.IndexOf(goalBeingEdited);
+            if (index >= 0)
+            {
+                Goals.RemoveAt(index);
+                Goals.Insert(index, goalBeingEdited);
+            }
 
-    // Close edit modal
-    IsEditModalVisible = false;
-    goalBeingEdited = null;
-}
+            // Close edit modal
+            IsEditModalVisible = false;
+            goalBeingEdited = null;
+        }
 
 
         private void CancelEdit()

@@ -193,111 +193,112 @@
 
         <!-- Edit modal overlay -->
         <Grid BackgroundColor="{DynamicResource ModalOverlayColor}"
-              IsVisible="{Binding IsEditModalVisible}"
-              VerticalOptions="Center"
-              HorizontalOptions="Center">
+      IsVisible="{Binding IsEditModalVisible}"
+      VerticalOptions="Center"
+      HorizontalOptions="Center">
 
             <Frame BackgroundColor="{DynamicResource BackgroundColor}"
-                   BorderColor="{DynamicResource EntryBorderColor}"
-                   CornerRadius="20"
-                   Padding="20"
-                   HasShadow="True"
-                   WidthRequest="350"
-                   HeightRequest="450"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center">
+           BorderColor="{DynamicResource EntryBorderColor}"
+           CornerRadius="20"
+           Padding="20"
+           HasShadow="True"
+           WidthRequest="350"
+           HeightRequest="450"
+           VerticalOptions="Center"
+           HorizontalOptions="Center">
 
-                <VerticalStackLayout Spacing="15">
-                    <Label Text="Edit Goal"
-                           TextColor="{DynamicResource PrimaryTextColor}"
-                           FontSize="28"
-                           HorizontalOptions="Center"/>
+                <ScrollView>
+                    <VerticalStackLayout Spacing="15">
 
-                    <!-- Edit Entries -->
-                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
-                           BorderColor="{DynamicResource EntryBorderColor}" 
-                           CornerRadius="8" Padding="0" HeightRequest="60">
-                        <Picker Title="Select Goal Type"
-                                ItemsSource="{Binding GoalTypes}"
-                                SelectedItem="{Binding EditGoalType, Mode=TwoWay}"
-                                TextColor="{DynamicResource EntryTextColor}"
-                                BackgroundColor="Transparent"
+                        <Label Text="Edit Goal"
+                       TextColor="{DynamicResource PrimaryTextColor}"
+                       FontSize="28"
+                       HorizontalOptions="Center"/>
+
+                        <!-- Goal Type Display (cannot be changed) -->
+                        <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                       BorderColor="{DynamicResource EntryBorderColor}" 
+                       CornerRadius="8" Padding="0" HeightRequest="60">
+                            <Label Text="{Binding EditGoalType}"
+                           TextColor="{DynamicResource EntryTextColor}"
+                           FontSize="20"
+                           VerticalOptions="Center"
+                           HorizontalOptions="Start"
+                           Padding="10,0"/>
+                        </Frame>
+
+                        <!-- Calories Input (only visible for calorie goal) -->
+                        <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                       BorderColor="{DynamicResource EntryBorderColor}" 
+                       CornerRadius="8" Padding="0" HeightRequest="60"
+                       IsVisible="{Binding EditShowCaloriesInput}">
+                            <Entry Placeholder="Target Calories"
+                           Text="{Binding EditTargetCalories, Mode=TwoWay}"
+                           Keyboard="Numeric"
+                           TextColor="{DynamicResource EntryTextColor}"
+                           BackgroundColor="Transparent"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                        </Frame>
+
+                        <!-- Exercise Minutes Input (only visible for exercise goal) -->
+                        <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                       BorderColor="{DynamicResource EntryBorderColor}" 
+                       CornerRadius="8" Padding="0" HeightRequest="60"
+                       IsVisible="{Binding EditShowExerciseInput}">
+                            <Entry Placeholder="Target Exercise Minutes"
+                           Text="{Binding EditTargetExerciseMinutes, Mode=TwoWay}"
+                           Keyboard="Numeric"
+                           TextColor="{DynamicResource EntryTextColor}"
+                           BackgroundColor="Transparent"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                        </Frame>
+
+                        <!-- Date Picker -->
+                        <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                       BorderColor="{DynamicResource EntryBorderColor}" 
+                       CornerRadius="8" Padding="0" HeightRequest="60">
+                            <DatePicker Date="{Binding EditTargetDate, Mode=TwoWay}" 
+                                TextColor="{DynamicResource EntryTextColor}" 
                                 FontSize="20"
                                 VerticalOptions="Center"/>
-                    </Frame>
+                        </Frame>
 
-                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowCaloriesInput}">
-                        <Entry Placeholder="Target Calories"
-                               Text="{Binding EditTargetCalories}"
-                               Keyboard="Numeric"
-                               TextColor="{DynamicResource EntryTextColor}"
-                               BackgroundColor="Transparent"
-                               FontSize="20"
-                               VerticalOptions="Center"/>
-                    </Frame>
+                        <!-- Notes Editor -->
+                        <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                       BorderColor="{DynamicResource EntryBorderColor}" 
+                       CornerRadius="8" Padding="0">
+                            <Editor Placeholder="Notes"
+                            Text="{Binding EditNotes, Mode=TwoWay}"
+                            TextColor="{DynamicResource EntryTextColor}"
+                            BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                            FontSize="20"
+                            AutoSize="TextChanges"
+                            HeightRequest="100"/>
+                        </Frame>
 
-                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowExerciseInput}">
-                        <Entry Placeholder="Target Exercise Minutes"
-                               Text="{Binding EditTargetExerciseMinutes}"
-                               Keyboard="Numeric"
-                               TextColor="{DynamicResource EntryTextColor}"
-                               BackgroundColor="Transparent"
-                               FontSize="20"
-                               VerticalOptions="Center"/>
-                    </Frame>
+                        <!-- Buttons -->
+                        <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                            <Button Text="Save Changes" Command="{Binding SaveEditCommand}"
+                            BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                            TextColor="{DynamicResource ButtonTextColor}"/>
+                            <Button Text="Cancel" Command="{Binding CancelEditCommand}"
+                            BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                            TextColor="{DynamicResource EntryTextColor}"
+                            BorderColor="{DynamicResource EntryBorderColor}"
+                            BorderWidth="1"/>
+                        </HorizontalStackLayout>
 
-                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowMuscleInput}">
-                        <Entry Placeholder="Target Muscle Weight"
-                               Text="{Binding EditTargetMuscleWeight}"
-                               Keyboard="Numeric"
-                               TextColor="{DynamicResource EntryTextColor}"
-                               BackgroundColor="Transparent"
-                               FontSize="20"
-                               VerticalOptions="Center"/>
-                    </Frame>
+                    </VerticalStackLayout>
+                </ScrollView>
 
-                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowMuscleInput}">
-                        <Entry Placeholder="Target Muscle Appearance"
-                               Text="{Binding EditTargetMuscleAppearance}"
-                               TextColor="{DynamicResource EntryTextColor}"
-                               BackgroundColor="Transparent"
-                               FontSize="20"
-                               VerticalOptions="Center"/>
-                    </Frame>
-
-                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowWeightInput}">
-                        <Entry Placeholder="Target Weight"
-                               Text="{Binding EditTargetWeight}"
-                               Keyboard="Numeric"
-                               TextColor="{DynamicResource EntryTextColor}"
-                               BackgroundColor="Transparent"
-                               FontSize="20"
-                               VerticalOptions="Center"/>
-                    </Frame>
-
-                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowNotesInput}">
-                        <Entry Placeholder="Notes"
-                               Text="{Binding EditNotes}"
-                               TextColor="{DynamicResource EntryTextColor}"
-                               BackgroundColor="Transparent"
-                               FontSize="20"
-                               VerticalOptions="Center"/>
-                    </Frame>
-
-                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                        <Button Text="Save Changes" Command="{Binding SaveEditCommand}"
-                                BackgroundColor="{DynamicResource ButtonBackgroundColor}"
-                                TextColor="{DynamicResource ButtonTextColor}"/>
-                        <Button Text="Cancel" Command="{Binding CancelEditCommand}"
-                                BackgroundColor="{DynamicResource EntryBackgroundColor}"
-                                TextColor="{DynamicResource EntryTextColor}"
-                                BorderColor="{DynamicResource EntryBorderColor}"
-                                BorderWidth="1"/>
-                    </HorizontalStackLayout>
-
-                </VerticalStackLayout>
             </Frame>
         </Grid>
+
+<!--always need more screaming so AAAAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH-->
+
+
 
     </Grid>
 </ContentPage>
