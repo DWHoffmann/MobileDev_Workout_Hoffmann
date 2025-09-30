@@ -1,4 +1,5 @@
 ﻿using Microsoft.Maui.Controls;
+using Workout.Resources.Styles;
 using Workout.Services;
 
 namespace Workout
@@ -9,7 +10,10 @@ namespace Workout
         {
             InitializeComponent();
 
-            // Set the main page
+            // Apply the saved theme BEFORE creating any pages
+            ThemeManager.ApplyTheme(ThemeManager.IsLightTheme);
+
+            // Set the main page after the correct theme is applied
             MainPage = new NavigationPage(new MainPage());
 
             // Log that the app has started

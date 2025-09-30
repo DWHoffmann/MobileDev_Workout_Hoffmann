@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="Workout.Resources.Styles.DarkTheme">
+
+    <!-- Page background -->
+    <Color x:Key="BackgroundColor">Black</Color>
+
+    <!-- Entry styling -->
+    <Color x:Key="EntryBackgroundColor">White</Color>
+    <Color x:Key="EntryTextColor">Black</Color>
+    <Color x:Key="EntryBorderColor">Gold</Color>
+    <Color x:Key="PlaceholderColor">Gray</Color>
+
+    <!-- Primary labels (titles) -->
+    <Color x:Key="PrimaryTextColor">Gold</Color>
+
+    <!-- Buttons -->
+    <Color x:Key="ButtonBackgroundColor">Gold</Color>
+    <Color x:Key="ButtonTextColor">Black</Color>
+
+    <!-- CollectionView / Frame items -->
+    <Color x:Key="CollectionItemBackgroundColor">#222222</Color>
+    <Color x:Key="CollectionItemTextColor">White</Color>
+    <Color x:Key="CollectionItemPrimaryTextColor">Gold</Color>
+
+    <!-- Swipe delete -->
+    <Color x:Key="DeleteButtonColor">Red</Color>
+
+    <!-- Modal overlay -->
+    <Color x:Key="ModalOverlayColor">#AA000000</Color>
+
+</ResourceDictionary>

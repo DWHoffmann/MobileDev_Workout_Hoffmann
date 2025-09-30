@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="Workout.Resources.Styles.LightTheme">
+
+    <Color x:Key="BackgroundColor">White</Color>
+    <Color x:Key="PrimaryTextColor">DarkRed</Color>
+    <Color x:Key="ButtonBackgroundColor">DarkRed</Color>
+    <Color x:Key="ButtonTextColor">White</Color>
+    <Color x:Key="EntryBackgroundColor">#FFEFEF</Color>
+    <Color x:Key="EntryTextColor">Black</Color>
+<!--this was so much nicer than dark mode-->
+</ResourceDictionary>

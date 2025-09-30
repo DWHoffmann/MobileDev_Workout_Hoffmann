@@ -1,134 +1,303 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Workout.ViewModels"
              x:Class="Workout.Views.GoalView"
              x:Name="GoalsPage"
-             BackgroundColor="Black">
+             BackgroundColor="{DynamicResource BackgroundColor}">
 
     <ContentPage.BindingContext>
         <vm:GoalViewModel />
     </ContentPage.BindingContext>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
-            <!-- brent will not understand these names without context-->
-            <Label Text="The Goals of Excesss" 
-                   FontSize="28"
-                   TextColor="Gold"
-                   HorizontalOptions="Center" />
+    <Grid>
 
-            <!-- Goal type picker -->
-            <Picker Title="Select Goal Type"
-                    ItemsSource="{Binding GoalTypes}"
-                    SelectedItem="{Binding SelectedGoalType}"
-                    TextColor="Black"
-                    BackgroundColor="White"
-                    FontSize="20"
-                    HeightRequest="60" />
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="15">
 
-            <!-- Conditional inputs -->
-            <Entry Placeholder="Target Calories"
-                   Keyboard="Numeric"
-                   Text="{Binding TargetCalories}"
-                   IsVisible="{Binding ShowCaloriesInput}"
-                   TextColor="Black"
-                   BackgroundColor="White"
-                   FontSize="20"
-                   HeightRequest="60"/>
+                <Label Text="The Goals of Excesss"
+                       FontSize="28"
+                       TextColor="{DynamicResource PrimaryTextColor}"
+                       HorizontalOptions="Center"/>
 
-            <Entry Placeholder="Target Exercise Minutes"
-                   Keyboard="Numeric"
-                   Text="{Binding TargetExerciseMinutes}"
-                   IsVisible="{Binding ShowExerciseInput}"
-                   TextColor="Black"
-                   BackgroundColor="White"
-                   FontSize="20"
-                   HeightRequest="60"/>
+                <!-- Goal type picker -->
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                       BorderColor="{DynamicResource EntryBorderColor}"
+                       CornerRadius="8"
+                       Padding="0"
+                       HeightRequest="60">
+                    <Picker Title="Select Goal Type"
+                            ItemsSource="{Binding GoalTypes}"
+                            SelectedItem="{Binding SelectedGoalType, Mode=TwoWay}"
+                            TextColor="{DynamicResource EntryTextColor}"
+                            BackgroundColor="Transparent"
+                            FontSize="20"
+                            VerticalOptions="Center"/>
+                </Frame>
 
-            <Entry Placeholder="Target Muscle Weight"
-                   Keyboard="Numeric"
-                   Text="{Binding TargetMuscleWeight}"
-                   IsVisible="{Binding ShowMuscleInput}"
-                   TextColor="Black"
-                   BackgroundColor="White"
-                   FontSize="20"
-                   HeightRequest="60"/>
+                <!-- Conditional inputs -->
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                       BorderColor="{DynamicResource EntryBorderColor}"
+                       CornerRadius="8"
+                       Padding="0"
+                       HeightRequest="60"
+                       IsVisible="{Binding ShowCaloriesInput}">
+                    <Entry Placeholder="Target Calories"
+                           Keyboard="Numeric"
+                           Text="{Binding TargetCalories}"
+                           TextColor="{DynamicResource EntryTextColor}"
+                           BackgroundColor="Transparent"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                </Frame>
 
-            <Entry Placeholder="Target Muscle Appearance"
-                   Text="{Binding TargetMuscleAppearance}"
-                   IsVisible="{Binding ShowMuscleInput}"
-                   TextColor="Black"
-                   BackgroundColor="White"
-                   FontSize="20"
-                   HeightRequest="60"/>
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                       BorderColor="{DynamicResource EntryBorderColor}"
+                       CornerRadius="8"
+                       Padding="0"
+                       HeightRequest="60"
+                       IsVisible="{Binding ShowExerciseInput}">
+                    <Entry Placeholder="Target Exercise Minutes"
+                           Keyboard="Numeric"
+                           Text="{Binding TargetExerciseMinutes}"
+                           TextColor="{DynamicResource EntryTextColor}"
+                           BackgroundColor="Transparent"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                </Frame>
 
-            <Entry Placeholder="Target Weight"
-                   Keyboard="Numeric"
-                   Text="{Binding TargetWeight}"
-                   IsVisible="{Binding ShowWeightInput}"
-                   TextColor="Black"
-                   BackgroundColor="White"
-                   FontSize="20"
-                   HeightRequest="60"/>
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                       BorderColor="{DynamicResource EntryBorderColor}"
+                       CornerRadius="8"
+                       Padding="0"
+                       HeightRequest="60"
+                       IsVisible="{Binding ShowMuscleInput}">
+                    <Entry Placeholder="Target Muscle Weight"
+                           Keyboard="Numeric"
+                           Text="{Binding TargetMuscleWeight}"
+                           TextColor="{DynamicResource EntryTextColor}"
+                           BackgroundColor="Transparent"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                </Frame>
 
-            <DatePicker Date="{Binding TargetDate}"
-                        TextColor="Black"
-                        BackgroundColor="White"
-                        FontSize="20"
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                       BorderColor="{DynamicResource EntryBorderColor}"
+                       CornerRadius="8"
+                       Padding="0"
+                       HeightRequest="60"
+                       IsVisible="{Binding ShowMuscleInput}">
+                    <Entry Placeholder="Target Muscle Appearance"
+                           Text="{Binding TargetMuscleAppearance}"
+                           TextColor="{DynamicResource EntryTextColor}"
+                           BackgroundColor="Transparent"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                </Frame>
+
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                       BorderColor="{DynamicResource EntryBorderColor}"
+                       CornerRadius="8"
+                       Padding="0"
+                       HeightRequest="60"
+                       IsVisible="{Binding ShowWeightInput}">
+                    <Entry Placeholder="Target Weight"
+                           Keyboard="Numeric"
+                           Text="{Binding TargetWeight}"
+                           TextColor="{DynamicResource EntryTextColor}"
+                           BackgroundColor="Transparent"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                </Frame>
+
+                <!-- New DatePicker -->
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                       BorderColor="{DynamicResource EntryBorderColor}"
+                       CornerRadius="8"
+                       Padding="0"
+                       HeightRequest="60"
+                       IsVisible="{Binding ShowTargetDate}">
+                    <DatePicker Date="{Binding TargetDate}"
+                                TextColor="{DynamicResource EntryTextColor}"
+                                BackgroundColor="Transparent"
+                                FontSize="20"
+                                VerticalOptions="Center"/>
+                </Frame>
+
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                       BorderColor="{DynamicResource EntryBorderColor}"
+                       CornerRadius="8"
+                       Padding="0"
+                       HeightRequest="60"
+                       IsVisible="{Binding ShowNotesInput}">
+                    <Entry Placeholder="Notes"
+                           Text="{Binding Notes}"
+                           TextColor="{DynamicResource EntryTextColor}"
+                           BackgroundColor="Transparent"
+                           FontSize="20"
+                           VerticalOptions="Center"/>
+                </Frame>
+
+                <Button Text="Save Goal"
+                        BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                        TextColor="{DynamicResource ButtonTextColor}"
+                        FontSize="22"
                         HeightRequest="60"
-                        IsVisible="{Binding ShowTargetDate}" />
+                        Command="{Binding SaveCommand}"
+                        IsVisible="{Binding IsGoalTypeSelected}"/>
 
-            <Entry Placeholder="Notes"
-                   Text="{Binding Notes}"
-                   TextColor="Black"
-                   BackgroundColor="White"
-                   FontSize="20"
-                   HeightRequest="60"/>
+                <!-- Saved goals -->
+                <CollectionView ItemsSource="{Binding Goals}" Margin="0,20,0,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem Text="Edit"
+                                                   BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                                                   Command="{Binding BindingContext.EditCommand, Source={x:Reference GoalsPage}}"
+                                                   CommandParameter="{Binding}" />
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
 
-            <Button Text="Save Goal"
-                    BackgroundColor="Gold"
-                    TextColor="Black"
-                    FontSize="22"
-                    HeightRequest="60"
-                    Command="{Binding SaveCommand}" />
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem Text="Delete"
+                                                   BackgroundColor="{DynamicResource DeleteButtonColor}"
+                                                   Command="{Binding BindingContext.DeleteCommand, Source={x:Reference GoalsPage}}"
+                                                   CommandParameter="{Binding}" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
 
-            <!-- Saved goals -->
-            <CollectionView ItemsSource="{Binding Goals}" Margin="0,20,0,0">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems Mode="Execute">
-                                    <SwipeItem Text="Delete"
-                                               BackgroundColor="Red"
-                                               Command="{Binding BindingContext.DeleteCommand, Source={x:Reference GoalsPage}}"
-                                               CommandParameter="{Binding}" />
-                                </SwipeItems>
-                            </SwipeView.RightItems>
+                                <Frame BackgroundColor="{DynamicResource CollectionItemBackgroundColor}" 
+                                       CornerRadius="10" 
+                                       Padding="10" 
+                                       Margin="0,5">
+                                    <VerticalStackLayout Spacing="5">
+                                        <Label Text="{Binding GoalType}" TextColor="{DynamicResource CollectionItemPrimaryTextColor}" FontSize="18"/>
+                                        <Label Text="{Binding TargetDate, StringFormat='Target Date: {0:d}'}" TextColor="{DynamicResource CollectionItemTextColor}"/>
+                                        <Label Text="{Binding ProgressText}" TextColor="{DynamicResource CollectionItemTextColor}"/>
+                                        <ProgressBar Progress="{Binding Progress}"
+                                                     BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                                                     ProgressColor="{DynamicResource ButtonBackgroundColor}"
+                                                     HeightRequest="10"/>
+                                        <Label Text="{Binding Notes}" TextColor="{DynamicResource CollectionItemTextColor}"/>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
-                            <Frame BackgroundColor="#222222" CornerRadius="10" Padding="10" Margin="0,5">
-                                <VerticalStackLayout Spacing="5">
-                                    <Label Text="{Binding GoalType}" TextColor="Gold" FontSize="18"/>
-                                    <Label Text="{Binding TargetDate, StringFormat='Target Date: {0:d}'}" TextColor="White"/>
+            </VerticalStackLayout>
+        </ScrollView>
 
-                                    <!-- Progress text -->
-                                    <Label Text="{Binding ProgressText}" TextColor="White"/>
+        <!-- Edit modal overlay -->
+        <Grid BackgroundColor="{DynamicResource ModalOverlayColor}"
+              IsVisible="{Binding IsEditModalVisible}"
+              VerticalOptions="Center"
+              HorizontalOptions="Center">
 
-                                    <!-- Progress bar -->
-                                    <ProgressBar Progress="{Binding Progress}"
-                                                 BackgroundColor="#555555"
-                                                 ProgressColor="Gold"
-                                                 HeightRequest="10"/>
-<!--the progress bar is gold for a reason-->
-                                    <Label Text="{Binding Notes}" TextColor="White"/>
-                                </VerticalStackLayout>
-                            </Frame>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <Frame BackgroundColor="{DynamicResource BackgroundColor}"
+                   BorderColor="{DynamicResource EntryBorderColor}"
+                   CornerRadius="20"
+                   Padding="20"
+                   HasShadow="True"
+                   WidthRequest="350"
+                   HeightRequest="450"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center">
 
-        </VerticalStackLayout>
-    </ScrollView>
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Edit Goal"
+                           TextColor="{DynamicResource PrimaryTextColor}"
+                           FontSize="28"
+                           HorizontalOptions="Center"/>
+
+                    <!-- Edit Entries -->
+                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                           BorderColor="{DynamicResource EntryBorderColor}" 
+                           CornerRadius="8" Padding="0" HeightRequest="60">
+                        <Picker Title="Select Goal Type"
+                                ItemsSource="{Binding GoalTypes}"
+                                SelectedItem="{Binding EditGoalType, Mode=TwoWay}"
+                                TextColor="{DynamicResource EntryTextColor}"
+                                BackgroundColor="Transparent"
+                                FontSize="20"
+                                VerticalOptions="Center"/>
+                    </Frame>
+
+                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowCaloriesInput}">
+                        <Entry Placeholder="Target Calories"
+                               Text="{Binding EditTargetCalories}"
+                               Keyboard="Numeric"
+                               TextColor="{DynamicResource EntryTextColor}"
+                               BackgroundColor="Transparent"
+                               FontSize="20"
+                               VerticalOptions="Center"/>
+                    </Frame>
+
+                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowExerciseInput}">
+                        <Entry Placeholder="Target Exercise Minutes"
+                               Text="{Binding EditTargetExerciseMinutes}"
+                               Keyboard="Numeric"
+                               TextColor="{DynamicResource EntryTextColor}"
+                               BackgroundColor="Transparent"
+                               FontSize="20"
+                               VerticalOptions="Center"/>
+                    </Frame>
+
+                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowMuscleInput}">
+                        <Entry Placeholder="Target Muscle Weight"
+                               Text="{Binding EditTargetMuscleWeight}"
+                               Keyboard="Numeric"
+                               TextColor="{DynamicResource EntryTextColor}"
+                               BackgroundColor="Transparent"
+                               FontSize="20"
+                               VerticalOptions="Center"/>
+                    </Frame>
+
+                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowMuscleInput}">
+                        <Entry Placeholder="Target Muscle Appearance"
+                               Text="{Binding EditTargetMuscleAppearance}"
+                               TextColor="{DynamicResource EntryTextColor}"
+                               BackgroundColor="Transparent"
+                               FontSize="20"
+                               VerticalOptions="Center"/>
+                    </Frame>
+
+                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowWeightInput}">
+                        <Entry Placeholder="Target Weight"
+                               Text="{Binding EditTargetWeight}"
+                               Keyboard="Numeric"
+                               TextColor="{DynamicResource EntryTextColor}"
+                               BackgroundColor="Transparent"
+                               FontSize="20"
+                               VerticalOptions="Center"/>
+                    </Frame>
+
+                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" BorderColor="{DynamicResource EntryBorderColor}" CornerRadius="8" Padding="0" HeightRequest="60" IsVisible="{Binding EditShowNotesInput}">
+                        <Entry Placeholder="Notes"
+                               Text="{Binding EditNotes}"
+                               TextColor="{DynamicResource EntryTextColor}"
+                               BackgroundColor="Transparent"
+                               FontSize="20"
+                               VerticalOptions="Center"/>
+                    </Frame>
+
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <Button Text="Save Changes" Command="{Binding SaveEditCommand}"
+                                BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                                TextColor="{DynamicResource ButtonTextColor}"/>
+                        <Button Text="Cancel" Command="{Binding CancelEditCommand}"
+                                BackgroundColor="{DynamicResource EntryBackgroundColor}"
+                                TextColor="{DynamicResource EntryTextColor}"
+                                BorderColor="{DynamicResource EntryBorderColor}"
+                                BorderWidth="1"/>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+
+    </Grid>
 </ContentPage>

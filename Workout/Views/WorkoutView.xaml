@@ -1,86 +1,194 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:Workout.ViewModels"
              x:Class="Workout.Views.WorkoutView"
-             BackgroundColor="Black">
+             x:Name="WorkoutPage"
+             BackgroundColor="{DynamicResource BackgroundColor}">
 
     <ContentPage.BindingContext>
         <vm:WorkoutViewModel />
     </ContentPage.BindingContext>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15">
+    <Grid>
+        <!-- Main Content -->
+        <ScrollView>
+            <VerticalStackLayout Padding="20" Spacing="15">
+                <Label Text="Workout Khorner"
+                       FontSize="28"
+                       TextColor="{DynamicResource PrimaryTextColor}"
+                       HorizontalOptions="Center" />
 
-            <Label Text="Workout Khorner"
-                   FontSize="28"
-                   TextColor="Gold"
-                   HorizontalOptions="Center" />
+                <!-- Input fields -->
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                       BorderColor="{DynamicResource EntryBorderColor}" 
+                       CornerRadius="8" Padding="0" HeightRequest="60">
+                    <Entry Placeholder="Workout Type" 
+                           PlaceholderColor="{DynamicResource PlaceholderColor}"
+                           Text="{Binding WorkoutType}" 
+                           TextColor="{DynamicResource EntryTextColor}" 
+                           BackgroundColor="Transparent" 
+                           FontSize="20" 
+                           VerticalOptions="Center"/>
+                </Frame>
 
-            <!-- Inputs -->
-            <Entry Placeholder="Workout Type" PlaceholderColor="Gray"
-                   Text="{Binding WorkoutType}" 
-                   TextColor="Black" 
-                   BackgroundColor="White" 
-                   FontSize="20" 
-                   HeightRequest="60"/>
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                       BorderColor="{DynamicResource EntryBorderColor}" 
+                       CornerRadius="8" Padding="0" HeightRequest="60">
+                    <Entry Placeholder="Duration (minutes)" 
+                           Keyboard="Numeric" 
+                           PlaceholderColor="{DynamicResource PlaceholderColor}"
+                           Text="{Binding MinutesWorkout}" 
+                           TextColor="{DynamicResource EntryTextColor}" 
+                           BackgroundColor="Transparent" 
+                           FontSize="20" 
+                           VerticalOptions="Center"/>
+                </Frame>
 
-            <Entry Placeholder="Duration (minutes)" PlaceholderColor="Gray"
-                   Keyboard="Numeric"
-                   Text="{Binding MinutesWorkout}" 
-                   TextColor="Black" 
-                   BackgroundColor="White" 
-                   FontSize="20" 
-                   HeightRequest="60"/>
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                       BorderColor="{DynamicResource EntryBorderColor}" 
+                       CornerRadius="8" Padding="0" HeightRequest="60">
+                    <DatePicker Date="{Binding Date}" 
+                                TextColor="{DynamicResource EntryTextColor}" 
+                                BackgroundColor="Transparent" 
+                                FontSize="20" 
+                                VerticalOptions="Center"/>
+                </Frame>
 
-            <DatePicker Date="{Binding Date}" 
-                        TextColor="Black"
-                        BackgroundColor="White"
-                        FontSize="20"
+                <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                       BorderColor="{DynamicResource EntryBorderColor}" 
+                       CornerRadius="8" Padding="0" HeightRequest="60">
+                    <Entry Placeholder="Calories Burnt" 
+                           Keyboard="Numeric" 
+                           PlaceholderColor="{DynamicResource PlaceholderColor}"
+                           Text="{Binding CaloriesBurnt}" 
+                           TextColor="{DynamicResource EntryTextColor}" 
+                           BackgroundColor="Transparent" 
+                           FontSize="20" 
+                           VerticalOptions="Center"/>
+                </Frame>
+
+                <Button Text="Save Workout" 
+                        Command="{Binding SaveCommand}" 
+                        BackgroundColor="{DynamicResource ButtonBackgroundColor}" 
+                        TextColor="{DynamicResource ButtonTextColor}" 
+                        FontSize="22" 
                         HeightRequest="60"/>
 
-            <Entry Placeholder="Calories Burnt" PlaceholderColor="Gray"
-                   Keyboard="Numeric" 
-                   Text="{Binding CaloriesBurnt}" 
-                   TextColor="Black" 
-                   BackgroundColor="White" 
-                   FontSize="20" 
-                   HeightRequest="60"/>
+                <!-- Saved entries -->
+                <CollectionView ItemsSource="{Binding WorkoutEntries}" Margin="0,20,0,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem Text="Edit"
+                                                   BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                                                   Command="{Binding BindingContext.EditCommand, Source={x:Reference WorkoutPage}}"
+                                                   CommandParameter="{Binding}" />
+                                    </SwipeItems>
+                                </SwipeView.LeftItems>
 
-            <Button Text="Save Workout" 
-                    BackgroundColor="Gold" 
-                    TextColor="Black" 
-                    FontSize="22" 
-                    HeightRequest="60" 
-                    Command="{Binding SaveCommand}" />
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Execute">
+                                        <SwipeItem Text="Delete"
+                                                   BackgroundColor="{DynamicResource DeleteButtonColor}"
+                                                   Command="{Binding BindingContext.DeleteCommand, Source={x:Reference WorkoutPage}}"
+                                                   CommandParameter="{Binding}" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
 
-            <!-- Saved entries -->
-            <CollectionView ItemsSource="{Binding WorkoutEntries}" Margin="0,20,0,0">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <SwipeView>
-                            <SwipeView.RightItems>
-                                <SwipeItems Mode="Execute">
-                                    <SwipeItem Text="Delete"
-                                               BackgroundColor="Red"
-                                               Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteCommand}"
-                                               CommandParameter="{Binding}" />
-                                </SwipeItems>
-                            </SwipeView.RightItems>
+                                <Frame BackgroundColor="{DynamicResource CollectionItemBackgroundColor}" 
+                                       CornerRadius="10" Padding="10" Margin="0,5">
+                                    <VerticalStackLayout Spacing="5">
+                                        <Label Text="{Binding WorkoutType}" TextColor="{DynamicResource CollectionItemPrimaryTextColor}" FontSize="18"/>
+                                        <Label Text="{Binding Date, StringFormat='Date: {0:d}'}" TextColor="{DynamicResource CollectionItemTextColor}"/>
+                                        <Label Text="{Binding MinutesWorkout, StringFormat='Duration: {0} minutes'}" TextColor="{DynamicResource CollectionItemTextColor}"/>
+                                        <Label Text="{Binding CaloriesBurnt, StringFormat='Calories Burnt: {0}'}" TextColor="{DynamicResource CollectionItemTextColor}"/>
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
 
-                            <Frame BackgroundColor="#222222" CornerRadius="10" Padding="10" Margin="0,5">
-                                <VerticalStackLayout Spacing="5">
-                                    <Label Text="{Binding WorkoutType}" TextColor="Gold" FontSize="18"/>
-                                    <Label Text="{Binding Date, StringFormat='Date: {0:d}'}" TextColor="White"/>
-                                    <Label Text="{Binding MinutesWorkout, StringFormat='Duration: {0} minutes'}" TextColor="White"/>
-                                    <Label Text="{Binding CalroiesBurnt, StringFormat='Calories Burnt: {0}'}" TextColor="White"/>
-                                </VerticalStackLayout>
-                            </Frame>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+        <!-- Modal Overlay -->
+        <Grid BackgroundColor="{DynamicResource ModalOverlayColor}"
+              IsVisible="{Binding IsEditModalVisible}"
+              VerticalOptions="Center"
+              HorizontalOptions="Center">
 
-        </VerticalStackLayout>
-    </ScrollView>
+            <Frame BackgroundColor="{DynamicResource BackgroundColor}"
+                   Padding="30"
+                   CornerRadius="20"
+                   HasShadow="True"
+                   WidthRequest="350"
+                   HeightRequest="450"
+                   VerticalOptions="Center"
+                   HorizontalOptions="Center">
+
+                <VerticalStackLayout Spacing="15">
+                    <Label Text="Edit Workout" 
+                           TextColor="{DynamicResource PrimaryTextColor}" 
+                           FontSize="28" 
+                           HorizontalOptions="Center"/>
+
+                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                           BorderColor="{DynamicResource EntryBorderColor}" 
+                           CornerRadius="8" Padding="0" HeightRequest="60">
+                        <Entry Text="{Binding EditWorkoutType}" 
+                               Placeholder="Workout Type"
+                               PlaceholderColor="{DynamicResource PlaceholderColor}"
+                               TextColor="{DynamicResource EntryTextColor}" 
+                               BackgroundColor="Transparent"/>
+                    </Frame>
+
+                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                           BorderColor="{DynamicResource EntryBorderColor}" 
+                           CornerRadius="8" Padding="0" HeightRequest="60">
+                        <Entry Text="{Binding EditMinutes}" 
+                               Placeholder="Duration (minutes)" 
+                               Keyboard="Numeric"
+                               PlaceholderColor="{DynamicResource PlaceholderColor}"
+                               TextColor="{DynamicResource EntryTextColor}" 
+                               BackgroundColor="Transparent"/>
+                    </Frame>
+
+                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                           BorderColor="{DynamicResource EntryBorderColor}" 
+                           CornerRadius="8" Padding="0" HeightRequest="60">
+                        <DatePicker Date="{Binding EditDate}" 
+                                    TextColor="{DynamicResource EntryTextColor}" 
+                                    BackgroundColor="Transparent"/>
+                    </Frame>
+
+                    <Frame BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                           BorderColor="{DynamicResource EntryBorderColor}" 
+                           CornerRadius="8" Padding="0" HeightRequest="60">
+                        <Entry Text="{Binding EditCalories}" 
+                               Placeholder="Calories Burnt" 
+                               Keyboard="Numeric"
+                               PlaceholderColor="{DynamicResource PlaceholderColor}"
+                               TextColor="{DynamicResource EntryTextColor}" 
+                               BackgroundColor="Transparent"/>
+                    </Frame>
+
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <Button Text="Save Changes" 
+                                Command="{Binding SaveEditCommand}"
+                                BackgroundColor="{DynamicResource ButtonBackgroundColor}" 
+                                TextColor="{DynamicResource ButtonTextColor}"/>
+                        <Button Text="Cancel" 
+                                Command="{Binding CancelEditCommand}" 
+                                BackgroundColor="{DynamicResource EntryBackgroundColor}" 
+                                TextColor="{DynamicResource EntryTextColor}" 
+                                BorderColor="{DynamicResource EntryBorderColor}" 
+                                BorderWidth="1"/>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
 </ContentPage>

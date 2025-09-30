@@ -24,7 +24,7 @@ namespace Workout.Models
             get
             {
                 if (TargetDate.HasValue && TargetDate.Value < DateTime.Now)
-                    return 1; 
+                    return 1;
 
                 return GoalProgressCalculator.Calculate(this);
             }

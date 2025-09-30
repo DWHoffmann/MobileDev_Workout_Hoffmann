@@ -1,35 +1,46 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Workout.MainPage"
-             BackgroundColor="Black">
-<!-- remember to add chaos stars  later -->
+             BackgroundColor="{DynamicResource BackgroundColor}">
+
     <VerticalStackLayout Padding="30" Spacing="25">
 
         <Label Text="Welcome to CHAOS Workouts!"
                FontSize="28"
-               TextColor="Gold"
+               TextColor="{DynamicResource PrimaryTextColor}"
                HorizontalOptions="Center"/>
 
         <Button Text="Goals Page"
-                BackgroundColor="Gold"
-                TextColor="Black"
+                BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                TextColor="{DynamicResource ButtonTextColor}"
                 FontSize="22"
                 HeightRequest="60"
                 Clicked="OnGoalsClicked" />
 
         <Button Text="Workout Page"
-                BackgroundColor="Gold"
-                TextColor="Black"
+                BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                TextColor="{DynamicResource ButtonTextColor}"
                 FontSize="22"
                 HeightRequest="60"
                 Clicked="OnWorkoutClicked" />
 
         <Button Text="Dietary Page"
-                BackgroundColor="Gold"
-                TextColor="Black"
+                BackgroundColor="{DynamicResource ButtonBackgroundColor}"
+                TextColor="{DynamicResource ButtonTextColor}"
                 FontSize="22"
                 HeightRequest="60"
                 Clicked="OnDietaryClicked" />
+
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+            <Label Text="Dark" 
+                   TextColor="{DynamicResource PrimaryTextColor}"
+                   VerticalOptions="Center"/>
+            <Switch x:Name="ThemeSwitch"
+                    Toggled="OnThemeToggled"/>
+            <Label Text="Light" 
+                   TextColor="{DynamicResource PrimaryTextColor}"
+                   VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+
     </VerticalStackLayout>
 </ContentPage>
